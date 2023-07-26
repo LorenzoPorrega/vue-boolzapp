@@ -1,4 +1,7 @@
 /* GENERAL STYLES */
+:root{
+  --main-color: rgb(234, 234, 234);
+}
 
 * {
   box-sizing: border-box;
@@ -8,6 +11,7 @@
 
 body{
   height: 100vh;
+  min-width: 880px;
   background: rgb(12,155,141);
   background: linear-gradient(180deg, rgba(12,155,141,1) 10%, rgba(215,219,214,1) 10%); 
 }
@@ -15,6 +19,7 @@ body{
 img{
   width: 60px;
   aspect-ratio: 1/1;
+  cursor: pointer;
 }
 
 .hover{
@@ -27,12 +32,13 @@ img{
 }
 
 .main-container{
-  width: 75%;
-  height: 90%;
+  width: 85%;
+  height: 800px;
+  box-shadow: 1px black;
 }
 
 .top-banner{
-  background-color: rgb(234, 234, 234);
+  background-color: var(--main-color);
   height: 75px;
 }
 
@@ -41,4 +47,54 @@ img{
 .notify-banner{
   background-color: rgb(142, 218, 252);
   height: 75px;
+}
+
+.notify-banner a{
+  width: 50px;
+  aspect-ratio: 1/1;
+  text-align: center;
+}
+
+.notify-banner .icon{
+  color: rgb(142, 218, 252);
+  margin-top: 25%;
+}
+
+.contacts .selected{
+  background-color: rgb(233, 235, 235);
+}
+
+.contact{
+  height: 80px;
+}
+
+.contact:hover{
+  background-color: rgb(236, 236, 236);
+}
+
+
+/* RIGHT CONTAINER */
+
+.chat-container{
+  background-image: url("../img/mine.jpg");
+  background-size: auto;
+  height: calc(100% - 75px);
+}
+
+.message-box{
+  background-color: var(--main-color);
+  height: 50px;
+}
+
+.message-box i{
+  color: rgb(60, 60, 60);
+}
+
+.chat-container .sent{
+  background-color: rgb(213, 249, 186);
+  align-self: flex-end;
+}
+
+.chat-container .received{
+  align-self: flex-start;
 }
