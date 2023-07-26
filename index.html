@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>_blank_</title>
+  <title>Boolzap</title>
   <!-- STYLE SHEET FILE LINK -->
   <link rel="stylesheet" href="./css/style.css">
   <!-- BOOTSTRAP CDN -->
@@ -15,8 +15,43 @@
   <!-- VUE CDN -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
-<body>
-  <div class="container text-center mt-5">
+<body class="overflow-hidden">
+  <div class="container main-container mt-5">
+    <div class="row bg-white">
+      <div class="col-4 d-flex flex-wrap align-items-start p-0 g-0 m-0">
+        <div class="top-banner w-100 p-2">
+          <div class="self-profile d-flex justify-content-between align-items-center h-100">
+            <div>
+              <img class="border-0 rounded-circle" src="img/avatar_io.jpg" alt="User-portrait">
+              <span class="ms-2 fs-4 fw-bold">Sofia</span>
+            </div>
+            <div>
+              <a href="#"><i class="icon fa-solid fa-circle-notch"></i></a>
+              <a href="#" class="ms-3"><i class="icon fa-solid fa-message"></i></a>
+              <a href="#" class="ms-3 me-3"><i class="icon fa-solid fa-ellipsis-vertical"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="notify-banner w-100 p-2 d-flex align-items-center">
+          <a href="#"><i class="icon fa-solid fa-bell-slash"></i></a>
+        </div>
+      </div>
+      <div class="col-8 d-flex align-items-start p-0 g-0 m-0">
+        <div class="top-banner w-100 p-2 border-start border-2 border-secondary-subtle">
+          <div class="self-profile d-flex justify-content-between align-items-center h-100">
+            <div>
+              <img class="border-0 rounded-circle" src="img/avatar_1.jpg" alt="User-portrait">
+              <span class="ms-2 fs-5">-PROFILO DA DINAMICIZZARE</span>
+            </div>
+            <div>
+              <a href="#" class=""><i class="icon fa-solid fa-magnifying-glass"></i></a>
+              <a href="#" class="ms-3"><i class="icon fa-solid fa-paperclip"></i></a>
+              <a href="#" class="ms-3 me-3"><i class="icon fa-solid fa-ellipsis-vertical"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 <script src="./js/main.js"></script>

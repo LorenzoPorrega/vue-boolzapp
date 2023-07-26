@@ -1,0 +1,44 @@
+/* GENERAL STYLES */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  height: 100vh;
+  background: rgb(12,155,141);
+  background: linear-gradient(180deg, rgba(12,155,141,1) 10%, rgba(215,219,214,1) 10%); 
+}
+
+img{
+  width: 60px;
+  aspect-ratio: 1/1;
+}
+
+.hover{
+  cursor: pointer;
+}
+
+.icon{
+  color: rgb(196, 200, 203);
+  font-size: 1.5rem;
+}
+
+.main-container{
+  width: 75%;
+  height: 90%;
+}
+
+.top-banner{
+  background-color: rgb(234, 234, 234);
+  height: 75px;
+}
+
+/* LEFT CONTAINER */
+
+.notify-banner{
+  background-color: rgb(142, 218, 252);
+  height: 75px;
+}
