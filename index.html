@@ -16,10 +16,9 @@
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body class="overflow-hidden d-flex justify-content-center">
-  <div class="main-container mt-5 shadow">
-    <div class="row bg-white h-100 ">
-      <div class="col-4 d-flex flex-column g-0 m-0">
-        <div class="top-banner w-100 p-2 border-end border-1 border-secondary-subtle shrink-0">
+  <div class="main-container d-flex  mt-5 shadow">
+    <div class="left-container d-flex flex-column g-0 m-0 flex-shrink-0">
+        <div class="top-banner w-100 p-2 border-end border-1 border-secondary-subtle flex-shrink-0">
           <div class="self-profile d-flex justify-content-between align-items-center h-100">
             <div>
               <img class="border-0 rounded-circle" src="img/avatar_io.jpg" alt="User-portrait">
@@ -32,14 +31,14 @@
             </div>
           </div>
         </div>
-        <div class="notify-banner w-100 p-2 d-flex align-items-center shrink-0">
+        <div class="notify-banner w-100 p-2 d-flex align-items-center flex-shrink-0">
           <a href="#" class="border-0 rounded-circle bg-white"><i class="icon fa-solid fa-bell-slash"></i></a>
           <div>
             <span class="d-block fw-bold ms-3">Ricevi notifiche di nuovi messaggi</span>
             <span class="d-block ms-3"><a href="#">Attiva notifiche desktop</a></span>
           </div>
         </div>
-        <div class="contacts-search w-100 p-2 bg-light-subtle d-flex flex-wrap border-bottom">
+        <div class="contacts-search w-100 p-2 bg-light-subtle d-flex flex-wrap border-bottom flex-shrink-0">
           <form class="container-fluid">
             <div class="input-group">
               <span class="input-group-text bg-white" id="basic-addon1"><i class="icon fa-solid fa-magnifying-glass"></i></span>
@@ -48,7 +47,7 @@
           </form>
         </div>
         <div class="contacts-container d-flex flex-column flex-grow-1 overflow-auto">
-          <div class="contact selected w-100 d-flex align-items-center border-bottom">
+          <div class="selected w-100 d-flex align-items-center border-bottom">
             <img class="ms-4 border-0 rounded-circle" src="img/avatar_1.jpg" alt="">
             <div class="d-flex flex-column ms-3">
               <span class="fw-bold">Michele</span>
@@ -105,8 +104,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-8 d-flex flex-wrap align-items-start p-0 g-0 m-0">
+    </div>
+    <div class="right-container d-flex flex-wrap align-items-start p-0 g-0 m-0 flex-grow-1">
         <div class="top-banner w-100 p-2 border-start border-1 border-secondary-subtle ">
           <div class="self-profile d-flex justify-content-between align-items-center h-100">
             <div class="d-flex flex-wrap">
@@ -124,7 +123,7 @@
           </div>
         </div>
         <div class="chat-container d-flex flex-column justify-content-between w-100">
-          <div class="chat px-5 py-3 d-flex flex-column justify-content-start w-100">
+          <div class="chat px-5 py-3 d-flex flex-column justify-content-start w-100 flex-grow-1 overflow-auto">
             <div class="card sent">
               <div class="card-body">
                 <p class="card-text">Esempio di testo inviato</p>
@@ -136,7 +135,7 @@
               </div>
             </div>
           </div>
-          <div class="row w-100 message-box justify-content-center align-items-center p-0 g-0 m-0">
+          <div class="row w-100 message-box justify-content-center align-items-center p-0 g-0 m-0 flex-shrink-0">
             <div class="col-1 text-center"><a href="#"></a><i class="icon fa-regular fa-face-smile"></i></a></div>
             <div class="col-10">
               <form class="container-fluid">
@@ -148,7 +147,6 @@
             <div class="col-1 text-center"><a href="#"><i class="icon fa-solid fa-microphone"></i></a></div>
           </div>
         </div>
-      </div>
     </div>
   </div>
 </body>
