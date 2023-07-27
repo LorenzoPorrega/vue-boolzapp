@@ -48,9 +48,11 @@
         </div>
         <div class="contacts-container d-flex flex-column flex-grow-1 overflow-auto">
           <div class="contact w-100 d-flex align-items-center border-bottom"
-          v-for="(singleContact) in contacts">
+          v-for="(singleContact, i) in contacts"
+          @click="saveSelectedChat(i)">
             <img class="ms-4 border-0 rounded-circle"
-            v-bind:src=`img/avatar${singleContact.avatar}.jpg`>
+            v-bind:src=`img/avatar${singleContact.avatar}.jpg`
+            v-bind:alt=`contacts[currentContactChat].name`>
             <div class="d-flex flex-column ms-3">
               <span class="fw-bold cursor-default">{{singleContact.name}}</span>
               <small class="text-body-secondary fst-italic cursor-default">Ultimo messaggio inviato:</small>
@@ -62,9 +64,11 @@
         <div class="top-banner w-100 p-2 border-start border-1 border-secondary-subtle">
           <div class="self-profile d-flex justify-content-between align-items-center h-100">
             <div class="d-flex flex-wrap">
-              <img class="border-0 rounded-circle" src="img/avatar_1.jpg" alt="User-portrait">
+              <img class="border-0 rounded-circle" alt="User-portrait"
+              v-bind:src=`img/avatar${contacts[currentContactChat].avatar}.jpg`
+              v-bind:alt=`contacts[currentContactChat].name`>
               <div class="d-inline-block d-flex flex-column ms-3 justify-content-center">
-                <span class="fs-5 cursor-default">Profilo da dinamicizzare</span>
+                <span class="fs-5 cursor-default">{{contacts[currentContactChat].name}}</span>
                 <small class="text-body-secondary cursor-default">Ultimo accesso oggi alle 16:30 - esempio</small>
               </div>
             </div>
@@ -77,16 +81,20 @@
         </div>
         <div class="chat-container d-flex flex-column justify-content-between w-100">
           <div class="chat px-5 py-3 d-flex flex-column justify-content-start w-100 flex-grow-1 overflow-auto">
-            <div class="card sent">
+            <div class="card mt-1"
+            v-for="(message, i) in contacts[currentContactChat].messages"
+            v-bind:class="contacts[currentContactChat].messages[i].status">
               <div class="card-body">
-                <p class="card-text">Esempio di testo inviato</p>
+                <p class="card-text">{{contacts[currentContactChat].messages[i].message}}</p>
               </div>
             </div>
+            <!--
             <div class="card received">
               <div class="card-body">
                 <p class="card-text">Esempio di testo ricevuto</p>
               </div>
             </div>
+            -->
           </div>
           <div class="row w-100 message-box justify-content-center align-items-center p-0 g-0 m-0 flex-shrink-0">
             <div class="col-1 text-center"><a href="#"></a><i class="icon fa-regular fa-face-smile"></i></a></div>

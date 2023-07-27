@@ -142,7 +142,7 @@ const app = createApp({
             },
             {
               date: "10/01/2020 15:50:00",
-              message: "Margot Robbie, indiscutibilmente.",
+              message: "Megan Fox, indiscutibilmente.",
               status: "received",
             },
           ],
@@ -165,10 +165,13 @@ const app = createApp({
         },
       ],
       currentContactChat: 0,
-    };
+    }
   },
   methods: {
-    
+    saveSelectedChat(i){
+      this.currentContactChat = i;
+      console.log(i);
+    },
     /*lastMessagePreview(){
       return this.singleContact.message[this.singleContact.message.length - 1].message;
     }*/

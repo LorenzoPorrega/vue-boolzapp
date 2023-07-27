@@ -104,6 +104,11 @@ img{
   color: rgb(60, 60, 60);
 }
 
+.chat-container .card{
+  max-width: 50%;
+  align-self: flex-end;
+}
+
 .chat-container .sent{
   background-color: rgb(213, 249, 186);
   align-self: flex-end;
