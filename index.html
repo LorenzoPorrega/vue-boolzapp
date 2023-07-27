@@ -16,13 +16,13 @@
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body class="overflow-hidden d-flex justify-content-center">
-  <div class="main-container d-flex  mt-5 shadow">
+  <div class="main-container d-flex  mt-5 shadow" id="app">
     <div class="left-container d-flex flex-column g-0 m-0 flex-shrink-0">
         <div class="top-banner w-100 p-2 border-end border-1 border-secondary-subtle flex-shrink-0">
           <div class="self-profile d-flex justify-content-between align-items-center h-100">
-            <div>
+            <div class="d-flex">
               <img class="border-0 rounded-circle" src="img/avatar_io.jpg" alt="User-portrait">
-              <span class="ms-2 fs-4 fw-bold">Sofia</span>
+              <span class="ms-2 fs-4 fw-bold align-self-center">Sofia</span>
             </div>
             <div>
               <a href="#"><i class="icon fa-solid fa-circle-notch"></i></a>
@@ -34,7 +34,7 @@
         <div class="notify-banner w-100 p-2 d-flex align-items-center flex-shrink-0">
           <a href="#" class="border-0 rounded-circle bg-white"><i class="icon fa-solid fa-bell-slash"></i></a>
           <div>
-            <span class="d-block fw-bold ms-3">Ricevi notifiche di nuovi messaggi</span>
+            <span class="cursor-default d-block fw-bold ms-3">Ricevi notifiche di nuovi messaggi</span>
             <span class="d-block ms-3"><a href="#">Attiva notifiche desktop</a></span>
           </div>
         </div>
@@ -47,72 +47,25 @@
           </form>
         </div>
         <div class="contacts-container d-flex flex-column flex-grow-1 overflow-auto">
-          <div class="selected w-100 d-flex align-items-center border-bottom">
-            <img class="ms-4 border-0 rounded-circle" src="img/avatar_1.jpg" alt="">
+          <div class="contact w-100 d-flex align-items-center border-bottom"
+          v-for="(singleContact) in contacts">
+            <img class="ms-4 border-0 rounded-circle"
+            v-bind:src=`img/avatar${singleContact.avatar}.jpg`>
             <div class="d-flex flex-column ms-3">
-              <span class="fw-bold">Michele</span>
-              <small class="text-body-secondary">Ultimo messaggio inviato:</small>
-            </div>
-          </div>
-          <div class="contact w-100 d-flex align-items-center border-bottom">
-            <img class="ms-4 border-0 rounded-circle" src="img/avatar_2.jpg" alt="">
-            <div class="d-flex flex-column ms-3">
-              <span class="fw-bold">Fabio</span>
-              <small class="text-body-secondary">Ultimo messaggio inviato:</small>
-            </div>
-          </div>
-          <div class="contact w-100 d-flex align-items-center border-bottom">
-            <img class="ms-4 border-0 rounded-circle" src="img/avatar_3.jpg" alt="">
-            <div class="d-flex flex-column ms-3">
-              <span class="fw-bold">Samuele</span>
-              <small class="text-body-secondary">Ultimo messaggio inviato:</small>
-            </div>
-          </div>
-          <div class="contact w-100 d-flex align-items-center border-bottom">
-            <img class="ms-4 border-0 rounded-circle" src="img/avatar_4.jpg" alt="">
-            <div class="d-flex flex-column ms-3">
-              <span class="fw-bold">Luisa</span>
-              <small class="text-body-secondary">Ultimo messaggio inviato:</small>
-            </div>
-          </div>
-          <div class="contact w-100 d-flex align-items-center border-bottom">
-            <img class="ms-4 border-0 rounded-circle" src="img/avatar_5.jpg" alt="">
-            <div class="d-flex flex-column ms-3">
-              <span class="fw-bold">Pietro</span>
-              <small class="text-body-secondary">Ultimo messaggio inviato:</small>
-            </div>
-          </div>
-          <div class="contact w-100 d-flex align-items-center border-bottom">
-            <img class="ms-4 border-0 rounded-circle" src="img/avatar_6.jpg" alt="">
-            <div class="d-flex flex-column ms-3">
-              <span class="fw-bold">Giulia</span>
-              <small class="text-body-secondary">Ultimo messaggio inviato:</small>
-            </div>
-          </div>
-          <div class="contact w-100 d-flex align-items-center border-bottom">
-            <img class="ms-4 border-0 rounded-circle" src="img/avatar_7.jpg" alt="">
-            <div class="d-flex flex-column ms-3">
-              <span class="fw-bold">Valerio</span>
-              <small class="text-body-secondary">Ultimo messaggio inviato:</small>
-            </div>
-          </div>
-          <div class="contact w-100 d-flex align-items-center border-bottom">
-            <img class="ms-4 border-0 rounded-circle" src="img/avatar_8.jpg" alt="">
-            <div class="d-flex flex-column ms-3">
-              <span class="fw-bold">Andrea</span>
-              <small class="text-body-secondary">Ultimo messaggio inviato:</small>
+              <span class="fw-bold cursor-default">{{singleContact.name}}</span>
+              <small class="text-body-secondary fst-italic cursor-default">Ultimo messaggio inviato:</small>
             </div>
           </div>
         </div>
     </div>
     <div class="right-container d-flex flex-wrap align-items-start p-0 g-0 m-0 flex-grow-1">
-        <div class="top-banner w-100 p-2 border-start border-1 border-secondary-subtle ">
+        <div class="top-banner w-100 p-2 border-start border-1 border-secondary-subtle">
           <div class="self-profile d-flex justify-content-between align-items-center h-100">
             <div class="d-flex flex-wrap">
               <img class="border-0 rounded-circle" src="img/avatar_1.jpg" alt="User-portrait">
               <div class="d-inline-block d-flex flex-column ms-3 justify-content-center">
-                <span class="fs-5">Profilo da dinamicizzare</span>
-                <small class="text-body-secondary">Ultimo accesso oggi alle 16:30 - esempio</small>
+                <span class="fs-5 cursor-default">Profilo da dinamicizzare</span>
+                <small class="text-body-secondary cursor-default">Ultimo accesso oggi alle 16:30 - esempio</small>
               </div>
             </div>
             <div>
