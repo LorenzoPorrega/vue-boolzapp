@@ -47,15 +47,15 @@
           </form>
         </div>
         <div class="contacts-container d-flex flex-column flex-grow-1 overflow-auto">
-          <div class="contact w-100 d-flex align-items-center border-bottom"
+          <div class="contact w-100 d-flex align-items-center border-bottom pe-4"
           v-for="(singleContact, i) in contacts"
           @click="saveSelectedChat(i)">
             <img class="ms-4 border-0 rounded-circle"
             v-bind:src=`img/avatar${singleContact.avatar}.jpg`
             v-bind:alt=`contacts[currentContactChat].name`>
-            <div class="d-flex flex-column ms-3">
+            <div class="d-flex flex-column ms-3 overflow-hidden">
               <span class="fw-bold cursor-default">{{singleContact.name}}</span>
-              <small class="text-body-secondary fst-italic cursor-default">Ultimo messaggio inviato:</small>
+              <small class="text-body-secondary cursor-default">{{sender(i, contacts)}}: <span class="fst-italic">{{contacts[i].messages[contacts[i].messages.length - 1].message}}</span></small>
             </div>
           </div>
         </div>
@@ -97,11 +97,13 @@
             -->
           </div>
           <div class="row w-100 message-box justify-content-center align-items-center p-0 g-0 m-0 flex-shrink-0">
-            <div class="col-1 text-center"><a href="#"></a><i class="icon fa-regular fa-face-smile"></i></a></div>
+            <div class="col-1 text-center"><a href="#"><i class="icon fa-regular fa-face-smile"></i></a></div>
             <div class="col-10">
               <form class="container-fluid">
                 <div class="input-group">
-                  <input type="text" class="form-control border border-start-0" placeholder="Scrivi un messaggio" aria-label="Username" aria-describedby="basic-addon1">
+                  <input type="text" class="form-control border border-start-0" placeholder="Scrivi un messaggio" aria-label="Username" aria-describedby="basic-addon1"
+                  v-model="text"
+                  @keyup.enter="sentMessage()">
                 </div>
               </form>
             </div>

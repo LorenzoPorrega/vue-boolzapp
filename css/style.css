@@ -51,6 +51,7 @@ img{
 .left-container{
   max-height: 100%;
   min-width: 25%;
+  max-width: 35%;
 }
 
 .notify-banner{
@@ -81,6 +82,10 @@ img{
 
 .contact:hover{
   background-color: rgb(245, 245, 245);
+}
+
+.contact small{
+  white-space: nowrap;
 }
 
 /* RIGHT CONTAINER */

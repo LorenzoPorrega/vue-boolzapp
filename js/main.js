@@ -21,7 +21,7 @@ const app = createApp({
             {
               date: "10/01/2020 16:15:22",
               message: "Tutto fatto!",
-              status: "received",
+              status: "sent",
             },
           ],
         },
@@ -41,7 +41,7 @@ const app = createApp({
             },
             {
               date: "20/03/2020 16:35:00",
-              message: "Mi piacerebbe ma devo andare a fare la spesa.",
+              message: "Mi piacerebbe ma devo andare a fare la spesa. fdmngfmnfdsssssssssssssssssssssssssssssssssssssjdfnojdn",
               status: "received",
             },
           ],
@@ -68,17 +68,17 @@ const app = createApp({
           ],
         },
         {
-          name: "Luisa",
+          name: "Andrea",
           avatar: "_4",
           messages: [
             {
               date: "10/01/2020 15:30:55",
-              message: "Lo sai che ha aperto una nuova pizzeria?",
+              message: "1vs1 CS:Go? 🤡",
               status: "sent",
             },
             {
               date: "10/01/2020 15:50:00",
-              message: "Si, ma preferirei andare al cinema",
+              message: "Zì, badrone...",
               status: "received",
             },
           ],
@@ -164,14 +164,33 @@ const app = createApp({
           ],
         },
       ],
+      //Index of current opened chat
       currentContactChat: 0,
+      whoWroteIt: "",
+      newMessage: [],
     }
   },
   methods: {
+    //method to assign the currently opened chat index (i) to currentContactChat
     saveSelectedChat(i){
       this.currentContactChat = i;
       console.log(i);
     },
+    /*
+    sentMessagge(){
+      const newMessage = this.text;
+      this.contacts[this.currentContactChat].messages.push(newMessage);
+    },
+    */
+    sender(i, contacts){
+      //Method to print who sent the message ("Tu" = You) based on the last message's class ("sent" or "received")
+      if(contacts[i].messages[contacts[i].messages.length - 1].status === "sent"){
+        return "Tu";
+      }
+      else{
+        return contacts[i].name;
+      }
+    }
     /*lastMessagePreview(){
       return this.singleContact.message[this.singleContact.message.length - 1].message;
     }*/
