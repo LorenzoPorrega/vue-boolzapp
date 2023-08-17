@@ -31,11 +31,15 @@
             </div>
           </div>
         </div>
-        <div class="notify-banner w-100 p-2 d-flex align-items-center flex-shrink-0">
+        <div class="notify-banner w-100 p-2 d-flex align-items-center flex-shrink-0"
+        v-if="notificationAllowed">
           <a href="#" class="border-0 rounded-circle bg-white"><i class="icon fa-solid fa-bell-slash"></i></a>
           <div>
             <span class="cursor-default d-block fw-bold ms-3">Ricevi notifiche di nuovi messaggi</span>
-            <span class="d-block ms-3"><a href="#">Attiva notifiche desktop</a></span>
+            <span class="d-block ms-3">
+              <a href="#0"
+              @click="allowNotification">Attiva notifiche desktop</a>
+            </span>
           </div>
         </div>
         <div class="contacts-search w-100 p-2 bg-light-subtle d-flex flex-wrap border-bottom flex-shrink-0">
@@ -52,10 +56,10 @@
           @click="saveSelectedChat(i)">
             <img class="ms-4 border-0 rounded-circle"
             v-bind:src=`img/avatar${singleContact.avatar}.jpg`
-            v-bind:alt=`contacts[currentContactChat].name`>
+            v-bind:alt=`${contacts[currentContactChat].name}-portrait`>
             <div class="d-flex flex-column ms-3 overflow-hidden">
               <span class="fw-bold cursor-default">{{singleContact.name}}</span>
-              <small class="text-body-secondary cursor-default">{{sender(i, contacts)}}: <span class="fst-italic">{{contacts[i].messages[contacts[i].messages.length - 1].message}}</span></small>
+              <small class="text-body-secondary cursor-default text-truncate">{{sender(i, contacts)}}: <span class="fst-italic">{{contacts[i].messages[contacts[i].messages.length - 1].message}} </span></small>
             </div>
           </div>
         </div>
@@ -64,9 +68,9 @@
         <div class="top-banner w-100 p-2 border-start border-1 border-secondary-subtle">
           <div class="self-profile d-flex justify-content-between align-items-center h-100">
             <div class="d-flex flex-wrap">
-              <img class="border-0 rounded-circle" alt="User-portrait"
+              <img class="border-0 rounded-circle"
               v-bind:src=`img/avatar${contacts[currentContactChat].avatar}.jpg`
-              v-bind:alt=`contacts[currentContactChat].name`>
+              v-bind:alt=`${contacts[currentContactChat].name}-portrait`>
               <div class="d-inline-block d-flex flex-column ms-3 justify-content-center">
                 <span class="fs-5 cursor-default">{{contacts[currentContactChat].name}}</span>
                 <small class="text-body-secondary cursor-default">Ultimo accesso oggi alle 16:30 - esempio</small>
@@ -101,9 +105,9 @@
             <div class="col-10">
               <form class="container-fluid">
                 <div class="input-group">
-                  <input type="text" class="form-control border border-start-0" placeholder="Scrivi un messaggio" aria-label="Username" aria-describedby="basic-addon1"
+                  <input type="text" class="form-control border border-start-0" placeholder="Scrivi un messaggio" aria-label="Username" aria-describedby="basic-addon1" autofocus
                   v-model="text"
-                  @keyup.enter="sentMessage()">
+                  @keyup.enter="sentMessage">
                 </div>
               </form>
             </div>

@@ -21,7 +21,7 @@ const app = createApp({
             {
               date: "10/01/2020 16:15:22",
               message: "Tutto fatto!",
-              status: "sent",
+              status: "received",
             },
           ],
         },
@@ -41,7 +41,7 @@ const app = createApp({
             },
             {
               date: "20/03/2020 16:35:00",
-              message: "Mi piacerebbe ma devo andare a fare la spesa. fdmngfmnfdsssssssssssssssssssssssssssssssssssssjdfnojdn",
+              message: "Mi piacerebbe ma devo andare a fare la spesa.",
               status: "received",
             },
           ],
@@ -166,8 +166,7 @@ const app = createApp({
       ],
       //Index of current opened chat
       currentContactChat: 0,
-      whoWroteIt: "",
-      newMessage: [],
+      notificationAllowed: true,
     }
   },
   methods: {
@@ -176,12 +175,31 @@ const app = createApp({
       this.currentContactChat = i;
       console.log(i);
     },
-    /*
-    sentMessagge(){
+    //method to take message input text via const newMessage, to push the message in corresponding chat and to then clear the text input
+    sentMessage(){
       const newMessage = this.text;
-      this.contacts[this.currentContactChat].messages.push(newMessage);
+      this.text = "";
+      setTimeout(() =>{
+        this.contacts[this.currentContactChat].messages.push(
+          {
+            date: "10/01/2020 15:50:00",
+            message: newMessage,
+            status: "sent",
+          }
+        );
+        setTimeout(() => {
+          this.contacts[this.currentContactChat].messages.push(
+            {
+              date: "10/01/2020 15:50:00",
+              message: "Ok",
+              status: "received",
+            }
+          );
+        },
+        1000);
+      },
+      1000);
     },
-    */
     sender(i, contacts){
       //Method to print who sent the message ("Tu" = You) based on the last message's class ("sent" or "received")
       if(contacts[i].messages[contacts[i].messages.length - 1].status === "sent"){
@@ -190,9 +208,18 @@ const app = createApp({
       else{
         return contacts[i].name;
       }
-    }
-    /*lastMessagePreview(){
-      return this.singleContact.message[this.singleContact.message.length - 1].message;
-    }*/
+    },
+    allowNotification(){
+      Notification.requestPermission().then(permission => {
+        if (permission == "granted"){
+          alert("Le notifiche di Boolzap sono abilitate!")
+        }
+        else{
+          alert("Le notifiche di Boolzap sono disabilitate.")
+        }
+      });
+
+      this.notificationAllowed = false;
+    },
   }
 }).mount("#app");
