@@ -184,7 +184,7 @@ const app = createApp({
             },
             {
               date: "10/01/2020 15:50:00",
-              message: "Mah, io mi sparerei una Warzonata EAZY con gli altri tbh◘◘",
+              message: "Mah, io mi sparerei una Warzonata EAZY con gli altri tbh",
               status: "sent",
             },
           ],
@@ -194,6 +194,7 @@ const app = createApp({
       currentContactChat: 0,
       notificationAllowed: true,
       contactSearch: "",
+      text: "",
     }
   },
   methods: {
