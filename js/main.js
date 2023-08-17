@@ -163,10 +163,37 @@ const app = createApp({
             },
           ],
         },
+        {
+          name: "Riccardo",
+          avatar: "_6",
+          messages: [
+            {
+              date: "10/01/2020 15:30:55",
+              message: "Bella uaiò",
+              status: "received",
+            },
+            {
+              date: "10/01/2020 15:50:00",
+              message: "Eccochi qua",
+              status: "sent",
+            },
+            {
+              date: "10/01/2020 15:50:00",
+              message: "Haram o sessione su Genshin Impact?",
+              status: "received",
+            },
+            {
+              date: "10/01/2020 15:50:00",
+              message: "Mah, io mi sparerei una Warzonata EAZY con gli altri tbh◘◘",
+              status: "sent",
+            },
+          ],
+        },
       ],
       //Index of current opened chat
       currentContactChat: 0,
       notificationAllowed: true,
+      contactSearch: "",
     }
   },
   methods: {
@@ -198,7 +225,7 @@ const app = createApp({
         },
         1000);
       },
-      1000);
+      100);
     },
     sender(i, contacts){
       //Method to print who sent the message ("Tu" = You) based on the last message's class ("sent" or "received")

@@ -18,6 +18,7 @@
 <body class="overflow-hidden d-flex justify-content-center">
   <div class="main-container d-flex  mt-5 shadow" id="app">
     <div class="left-container d-flex flex-column g-0 m-0 flex-shrink-0">
+
         <div class="top-banner w-100 p-2 border-end border-1 border-secondary-subtle flex-shrink-0">
           <div class="self-profile d-flex justify-content-between align-items-center h-100">
             <div class="d-flex">
@@ -31,6 +32,7 @@
             </div>
           </div>
         </div>
+
         <div class="notify-banner w-100 p-2 d-flex align-items-center flex-shrink-0"
         v-if="notificationAllowed">
           <a href="#" class="border-0 rounded-circle bg-white"><i class="icon fa-solid fa-bell-slash"></i></a>
@@ -42,29 +44,37 @@
             </span>
           </div>
         </div>
+
         <div class="contacts-search w-100 p-2 bg-light-subtle d-flex flex-wrap border-bottom flex-shrink-0">
           <form class="container-fluid">
             <div class="input-group">
               <span class="input-group-text bg-white" id="basic-addon1"><i class="icon fa-solid fa-magnifying-glass"></i></span>
-              <input type="text" class="form-control border border-start-0" placeholder="Cerca o inizia una nuova chat" aria-label="Username" aria-describedby="basic-addon1">
+              <input type="text" class="form-control border border-start-0" placeholder="Cerca o inizia una nuova chat" aria-label="Username" aria-describedby="basic-addon1"
+              v-model="contactSearch">
             </div>
           </form>
         </div>
+
         <div class="contacts-container d-flex flex-column flex-grow-1 overflow-auto">
-          <div class="contact w-100 d-flex align-items-center border-bottom pe-4"
+          <div
           v-for="(singleContact, i) in contacts"
           @click="saveSelectedChat(i)">
-            <img class="ms-4 border-0 rounded-circle"
-            v-bind:src=`img/avatar${singleContact.avatar}.jpg`
-            v-bind:alt=`${contacts[currentContactChat].name}-portrait`>
-            <div class="d-flex flex-column ms-3 overflow-hidden">
-              <span class="fw-bold cursor-default">{{singleContact.name}}</span>
-              <small class="text-body-secondary cursor-default text-truncate">{{sender(i, contacts)}}: <span class="fst-italic">{{contacts[i].messages[contacts[i].messages.length - 1].message}} </span></small>
+            <div class="contact w-100 d-flex align-items-center border-bottom pe-4"
+            v-if="singleContact.name.toLowerCase().includes(contactSearch.toLowerCase())">
+              <img class="ms-4 border-0 rounded-circle"
+              v-bind:src=`img/avatar${singleContact.avatar}.jpg`
+              v-bind:alt=`${contacts[currentContactChat].name}-portrait`>
+              <div class="d-flex flex-column ms-3 overflow-hidden">
+                <span class="fw-bold cursor-default">{{singleContact.name}}</span>
+                <small class="text-body-secondary cursor-default text-truncate">{{sender(i, contacts)}}: <span class="fst-italic">{{contacts[i].messages[contacts[i].messages.length - 1].message}} </span></small>
+              </div>
             </div>
           </div>
         </div>
     </div>
+
     <div class="right-container d-flex flex-wrap align-items-start p-0 g-0 m-0 flex-grow-1">
+
         <div class="top-banner w-100 p-2 border-start border-1 border-secondary-subtle">
           <div class="self-profile d-flex justify-content-between align-items-center h-100">
             <div class="d-flex flex-wrap">
@@ -83,6 +93,7 @@
             </div>
           </div>
         </div>
+
         <div class="chat-container d-flex flex-column justify-content-between w-100">
           <div class="chat px-5 py-3 d-flex flex-column justify-content-start w-100 flex-grow-1 overflow-auto">
             <div class="card mt-1"
@@ -100,6 +111,7 @@
             </div>
             -->
           </div>
+
           <div class="row w-100 message-box justify-content-center align-items-center p-0 g-0 m-0 flex-shrink-0">
             <div class="col-1 text-center"><a href="#"><i class="icon fa-regular fa-face-smile"></i></a></div>
             <div class="col-10">
