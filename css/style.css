@@ -112,6 +112,23 @@ img{
   right: 0;
 }
 
+.chat-container .btn{
+  color: transparent;
+}
+
+.chat-container .btn:focus, .chat-container .btn:hover{
+  color: grey;
+  transition: color 0s ease-in-out,background-color 0s ease-in-out,border-color 0s ease-in-out,box-shadow 0s ease-in-out;
+}
+
+.dropdown .dropdown-menu{
+  font-size: 0.75rem;
+  text-align: center;
+  --bs-dropdown-min-width: 0rem;
+  --bs-dropdown-padding-y: 0.25rem;
+  --bs-dropdown-padding-x: 0.125rem;
+}
+
 .chat-container .message-date{
   right: 5px;
   bottom: 1px;

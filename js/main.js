@@ -19,7 +19,7 @@ const app = createApp({
               status: "sent",
             },
             {
-              date: "10/01/2020 16:15",
+              date: "17/08/2023 16:15",
               message: "Tutto fatto!",
               status: "received",
             },
@@ -195,6 +195,8 @@ const app = createApp({
       notificationAllowed: true,
       contactSearch: "",
       text: "",
+      currentDay: (new Intl.DateTimeFormat("en-GB", {dateStyle: "short"}).format(new Date())),
+      isLastMessageToday: "",
     }
   },
   methods: {
@@ -203,8 +205,8 @@ const app = createApp({
       this.currentContactChat = i;
       console.log(i);
     },
-    //method to take message input text via const newMessage, to push the message in corresponding chat and to then clear the text input
     sentMessage(){
+    //method to take message input text via const newMessage, to push the message in corresponding chat and to then clear the text input
       const newMessage = this.text.trim();
       this.text = "";
 
@@ -215,7 +217,7 @@ const app = createApp({
         setTimeout(() =>{
           this.contacts[this.currentContactChat].messages.push(
             {
-              date: (new Intl.DateTimeFormat("it", {
+              date: (new Intl.DateTimeFormat("en-GB", {
                 dateStyle: "short",
                 timeStyle: "short",
               }).format(new Date())).replace(",", ""),
@@ -226,7 +228,7 @@ const app = createApp({
           setTimeout(() => {
             this.contacts[this.currentContactChat].messages.push(
               {
-                date: (new Intl.DateTimeFormat("it", {
+                date: (new Intl.DateTimeFormat("en-GB", {
                   dateStyle: "short",
                   timeStyle: "short",
                 }).format(new Date())).replace(",", ""),
@@ -249,8 +251,10 @@ const app = createApp({
       else{
         return contacts[i].name;
       }
+      
     },
     allowNotification(){
+      //Method to ask permission to notify the user if the user clicks on a <a> tag and to alert the user if notifications have been allowed or not after their permission
       Notification.requestPermission().then(permission => {
         if (permission == "granted"){
           alert("Le notifiche di Boolzap sono abilitate!")
@@ -261,6 +265,30 @@ const app = createApp({
       });
 
       this.notificationAllowed = false;
+    },
+    deleteSelectedMessage(contacts, i){
+      console.log(contacts[this.currentContactChat].messages[i])
+      contacts[this.currentContactChat].messages.splice([contacts[this.currentContactChat].messages[i]])
+    },
+    lastAccess(contacts){
+      /*Method to get the last access of selectedContact. In the if block the first condition is to check
+      if the date of the last messagge coincides with today -> the lastAccess is today ("oggi" in it), the
+      second condition is to check if the current year corresponds to the year of the last message -> 
+      lastAcces will be "<day>/<month>" date of the last message itself and the last condition, which is the
+      result of the last message's date not being today neither the present year, returns the full last 
+      message's date  */
+      const date = (contacts[this.currentContactChat].messages[(contacts[this.currentContactChat].messages).length - 1].date).split(" ")[0];
+      const dayMonth = ((contacts[this.currentContactChat].messages[(contacts[this.currentContactChat].messages).length - 1].date).split(" ")[0]).split("/").slice(0, -1).join("/");
+
+      if(date === this.currentDay){
+        return "oggi";
+      }
+      else if(((contacts[this.currentContactChat].messages[(contacts[this.currentContactChat].messages).length - 1].date).split(" ")[0]).split("/")[2] === (new Date().getFullYear().toString())){
+        return dayMonth
+      }
+      else{
+        return date
+      }
     },
   }
 }).mount("#app");

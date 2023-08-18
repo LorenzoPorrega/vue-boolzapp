@@ -89,7 +89,7 @@
               v-bind:alt=`${contacts[currentContactChat].name}-portrait`>
               <div class="d-inline-block d-flex flex-column ms-3 justify-content-center">
                 <span class="fs-5 cursor-default">{{contacts[currentContactChat].name}}</span>
-                <small class="text-body-secondary cursor-default">Ultimo accesso oggi alle 16:30 - esempio</small>
+                <small class="text-body-secondary cursor-default">Ultimo accesso {{lastAccess(contacts)}} alle {{(contacts[currentContactChat].messages[(contacts[currentContactChat].messages).length - 1].date).split(" ")[1]}}</small>
               </div>
             </div>
             <div>
@@ -107,13 +107,11 @@
             v-bind:class="contacts[currentContactChat].messages[i].status">
               <div class="card-body position-relative pt-2 pb-3 px-2">
                 <div class="dropdown position-absolute">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown
+                  <button class="btn dropdown-toggle bg-transparent text-body-transparent border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   </button>
-                  <ul class="dropdown-menu">
-                    <li><button class="dropdown-item" type="button">Action</button></li>
-                    <li><button class="dropdown-item" type="button">Another action</button></li>
-                    <li><button class="dropdown-item" type="button">Something else here</button></li>
+                  <ul class="dropdown-menu"
+                  @click="deleteSelectedMessage(contacts, i)">
+                    <li><button class="dropdown-item px-1" type="button">Cancella messaggio</button></li>
                   </ul>
                 </div>
                 <p class="card-text mb-0 pe-4">{{contacts[currentContactChat].messages[i].message}}</p>
@@ -140,4 +138,5 @@
   </div>
 </body>
 <script src="./js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </html>
