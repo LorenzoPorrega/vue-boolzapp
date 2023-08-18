@@ -102,18 +102,20 @@ img{
   height: calc(100% - 75px);
 }
 
-.message-box{
-  background-color: var(--main-color);
-  height: 50px;
-}
-
-.message-box i{
-  color: rgb(60, 60, 60);
-}
-
 .chat-container .card{
   max-width: 50%;
   align-self: flex-end;
+}
+
+.chat-container .dropdown{
+  top: 0;
+  right: 0;
+}
+
+.chat-container .message-date{
+  right: 5px;
+  bottom: 1px;
+  font-size: 0.635rem;
 }
 
 .chat-container .sent{
@@ -123,4 +125,17 @@ img{
 
 .chat-container .received{
   align-self: flex-start;
+}
+
+.message-box{
+  background-color: var(--main-color);
+  height: 50px;
+}
+
+.message-box i{
+  color: rgb(60, 60, 60);
+}
+
+.message-box .text-box{
+  resize: none;
 }
