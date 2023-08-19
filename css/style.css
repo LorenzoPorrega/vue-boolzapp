@@ -146,7 +146,8 @@ img{
 
 .message-box{
   background-color: var(--main-color);
-  height: 50px;
+  min-height: 40px;
+  height: min-content;
 }
 
 .message-box i{
@@ -155,4 +156,5 @@ img{
 
 .message-box .text-box{
   resize: none;
+  overflow: hidden;
 }

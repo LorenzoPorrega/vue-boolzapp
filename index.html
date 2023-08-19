@@ -23,8 +23,9 @@
 </head>
 <body class="overflow-hidden d-flex justify-content-center">
   <div class="main-container d-flex  mt-5 shadow" id="app">
+    <!-- LEFT CONTAINER-->
     <div class="left-container d-flex flex-column g-0 m-0 flex-shrink-0">
-
+        <!-- TOP BANNER-->
         <div class="top-banner w-100 p-2 border-end border-1 border-secondary-subtle flex-shrink-0">
           <div class="self-profile d-flex justify-content-between align-items-center h-100">
             <div class="d-flex">
@@ -38,10 +39,10 @@
             </div>
           </div>
         </div>
-
+        <!-- NOTIFICATION BANNER -->
         <div class="notify-banner w-100 p-2 d-flex align-items-center flex-shrink-0"
         v-if="notificationAllowed">
-          <a href="#" class="border-0 rounded-circle bg-white"><i class="icon fa-solid fa-bell-slash"></i></a>
+          <a href="#0" class="border-0 rounded-circle bg-white"><i class="icon fa-solid fa-bell-slash"></i></a>
           <div>
             <span class="cursor-default d-block fw-bold ms-3">Ricevi notifiche di nuovi messaggi</span>
             <span class="d-block ms-3">
@@ -50,7 +51,7 @@
             </span>
           </div>
         </div>
-
+        <!-- CONTACTS SEARCH BAR  -->
         <div class="contacts-search w-100 p-2 bg-light-subtle d-flex flex-wrap border-bottom flex-shrink-0">
           <form class="container-fluid">
             <div class="input-group">
@@ -60,11 +61,12 @@
             </div>
           </form>
         </div>
-
+        <!-- CONTACTS LIST -->
         <div class="contacts-container d-flex flex-column flex-grow-1 overflow-auto">
           <div
           v-for="(singleContact, i) in contacts"
-          @click="saveSelectedChat(i)">
+          @click="saveSelectedChat(i)"
+          @click="lastAccess()">
             <div class="contact w-100 d-flex align-items-center border-bottom pe-4"
             v-if="singleContact.name.toLowerCase().includes(contactSearch.toLowerCase())">
               <img class="ms-4 border-0 rounded-circle"
@@ -78,9 +80,9 @@
           </div>
         </div>
     </div>
-
+    <!-- RIGHT CONTAINER -->
     <div class="right-container d-flex flex-wrap align-items-start p-0 g-0 m-0 flex-grow-1">
-
+        <!-- TOP BANNER -->
         <div class="top-banner w-100 p-2 border-start border-1 border-secondary-subtle">
           <div class="self-profile d-flex justify-content-between align-items-center h-100">
             <div class="d-flex flex-wrap">
@@ -89,7 +91,7 @@
               v-bind:alt=`${contacts[currentContactChat].name}-portrait`>
               <div class="d-inline-block d-flex flex-column ms-3 justify-content-center">
                 <span class="fs-5 cursor-default">{{contacts[currentContactChat].name}}</span>
-                <small class="text-body-secondary cursor-default">Ultimo accesso {{lastAccess(contacts)}} alle {{(contacts[currentContactChat].messages[(contacts[currentContactChat].messages).length - 1].date).split(" ")[1]}}</small>
+                <small class="text-body-secondary cursor-default">Ultimo accesso {{contacts[currentContactChat].lastAccessDate}} alle {{contacts[currentContactChat].lastAccessHour}}</small>
               </div>
             </div>
             <div>
@@ -99,7 +101,7 @@
             </div>
           </div>
         </div>
-
+        <!-- CHAT CONTAINER -->
         <div class="chat-container d-flex flex-column justify-content-between w-100">
           <div class="chat px-5 py-3 d-flex flex-column justify-content-start w-100 flex-grow-1 overflow-auto">
             <div class="card mt-1"
@@ -119,19 +121,23 @@
               </div>
             </div>
           </div>
-
-          <div class="row w-100 message-box justify-content-center align-items-center p-0 g-0 m-0 flex-shrink-0">
+          <!-- MESSAGE INPUT TEXTAREA -->
+          <div class="row w-100 message-box justify-content-center align-items-center px-0 py-2 g-0 m-0 flex-shrink-0">
             <div class="col-1 text-center"><a href="#"><i class="icon fa-regular fa-face-smile"></i></a></div>
             <div class="col-10">
               <form class="container-fluid">
                 <div class="input-group">
-                  <textarea type="text" class="form-control text-box border border-start-0" placeholder="Scrivi un messaggio" aria-label="Username" aria-describedby="basic-addon1" autofocus
+                  <textarea type="text" class="form-control text-box border border-start-0" placeholder="Scrivi un messaggio" aria-label="Username" aria-describedby="basic-addon1" autofocus rows="1"
                   v-model="text"
-                  @keyup.enter="sentMessage"></textarea>
+                  ref="textarea"
+                  @keyup.enter="sentMessage"
+                  @keyup.enter="resizeTextarea"
+                  @input="resizeTextarea"
+                  ></textarea>
                 </div>
               </form>
             </div>
-            <div class="col-1 text-center"><a href="#"><i class="icon fa-solid fa-microphone"></i></a></div>
+            <div class="col-1 text-center"><a href="#"><i v-bind:class="getClass()"></i></a></div>
           </div>
         </div>
     </div>
