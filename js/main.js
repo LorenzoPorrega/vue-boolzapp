@@ -2,7 +2,7 @@
 FATTO - evitare che l’utente possa inviare un messaggio vuoto o composto solamente da spazi
 FATTO - A) cambiare icona in basso a destra (a fianco all’input per scrivere un nuovo messaggio) finché l’utente sta scrivendo: di default si visualizza l’icona del microfono, quando l’input non è vuoto si visualizza l’icona dell’aeroplano. Quando il messaggio è stato inviato e l’input si svuota, si torna a visualizzare il microfono. B) inviare quindi il messaggio anche cliccando sull’icona dell’aeroplano
 FATTO - predisporre una lista di frasi e/o citazioni da utilizzare al posto della risposta “ok:” quando il pc risponde, anziché scrivere “ok”, scegliere una frase random dalla lista e utilizzarla come testo del messaggio di risposta del pc
-visualizzare nella lista dei contatti l’ultimo messaggio inviato/ricevuto da ciascun contatto
+FATTO - visualizzare nella lista dei contatti l’ultimo messaggio inviato/ricevuto da ciascun contatto
 FATTO (da capire cosa significa "(v. node day.js)" - (inserire l’orario corretto nei messaggi (v. note day.js)
 sotto al nome del contatto nella parte in alto a destra, cambiare l’indicazione dello stato: visualizzare il testo “sta scrivendo...” nel timeout in cui il pc risponde, poi mantenere la scritta “online” per un paio di secondi e infine visualizzare “ultimo accesso alle xx:yy” con l’orario corretto
 dare la possibilità all’utente di cancellare tutti i messaggi di un contatto o di cancellare l’intera chat con tutti i suoi dati: cliccando sull’icona con i tre pallini in alto a destra, si apre un dropdown menu in cui sono presenti le voci “Elimina messaggi” ed “Elimina chat”; cliccando su di essi si cancellano rispettivamente tutti i messaggi di quel contatto (quindi rimane la conversazione vuota) oppure l’intera chat comprensiva di tutti i dati del contatto oltre che tutti i suoi messaggi (quindi sparisce il contatto anche dalla lista di sinistra)
@@ -211,11 +211,14 @@ const app = createApp({
       ],
       //Index of current opened chat
       currentContactChat: 0,
+      //Boolean starting value for notification permission
       notificationAllowed: true,
+      //var to dynamically store the contact search
       contactSearch: "",
+      //var to dynamically store what's written in the new message bar
       text: "",
+      //var to extract in case of need of the current day
       currentDay: (new Intl.DateTimeFormat("en-GB", {dateStyle: "short"}).format(new Date())),
-      isLastMessageToday: "",
     }
   },
   methods: {
@@ -224,11 +227,15 @@ const app = createApp({
       this.currentContactChat = i;
       document.querySelector(".text-box").focus();
       
+      //for each new contact tab opened we run two function to update the lastAccessDate and lastAccessHOur
       this.lastAccessDate();
-      this.contacts[this.currentContactChat]["lastAccessHour"] = this.contacts[this.currentContactChat].messages[(this.contacts[this.currentContactChat].messages).length - 1].date.split(" ")[1];
+      this.getLastAccessHourOnLoad(this.currentContactChat);
+      /* UNUSED-> this.contacts[this.currentContactChat]["lastAccessHour"] = this.contacts[this.currentContactChat].messages[(this.contacts[this.currentContactChat].messages).length - 1].date.split(" ")[1];*/
     },
     sentMessage(){
-    //method to take message input text via const newMessage, to push the message in corresponding chat and to then clear the text input
+    /*method to take message input text via const newMessage, to push the message in corresponding chat 
+    and to then clear the text input. we also update lastAccessDate and lastAccessHour given the contact's
+    response corresponds to being online*/
       const newMessage = this.text.trim();
       this.text = "";
       const currentHour = (new Intl.DateTimeFormat("en-GB", {timeStyle: "short",}).format(new Date()));
@@ -290,15 +297,16 @@ const app = createApp({
       this.notificationAllowed = false;
     },
     deleteSelectedMessage(contacts, i){
+      //Method to splice, hence remove an array's elements without disrupting the original array, based on i (the message corresponding index in the v-for)
       contacts[this.currentContactChat].messages.splice(i.toString(), 1);
     },
     lastAccessDate(){
       /*Method to get the last access of selectedContact. In the if block the first condition is to check
       if the date of the last messagge coincides with today -> the lastAccess is today ("oggi" in it), the
       second condition is to check if the current year corresponds to the year of the last message -> 
-      lastAcces will be "<day>/<month>" date of the last message itself and the last condition, which is the
+      lastAcces will be "<day>/<month>" date of the last message itself, and the last condition, which is the
       result of the last message's date not being today neither the present year, returns the full last 
-      message's date  TO BE REDONE AFTER CHANGES */ 
+      message's date -> "<day>/<month>/<year> <hour><minutes>"" */ 
       const date = (this.contacts[this.currentContactChat].messages[(this.contacts[this.currentContactChat].messages).length - 1].date).split(" ")[0];
       const dayMonth = ((this.contacts[this.currentContactChat].messages[(this.contacts[this.currentContactChat].messages).length - 1].date).split(" ")[0]).split("/").slice(0, -1).join("/");
 
@@ -314,10 +322,12 @@ const app = createApp({
       }
     },
     resizeTextarea() {
-      this.$refs.textarea.style.height = "1px";
+      //Method to resize the textArea
+      this.$refs.textarea.style.height = "auto";
       this.$refs.textarea.style.height = `${this.$refs.textarea.scrollHeight}px`;
     },
     getClass(){
+      //Method to change the send message icon from a microphone before texting to a paperplane once the textarea has some text in it
       if(this.text === ""){
         return "icon fa-solid fa-microphone"
       }
@@ -325,12 +335,30 @@ const app = createApp({
         return "icon fa-regular fa-paper-plane"
       }
     },
+    getLastAccessHourOnLoad(contactToAssign){
+      //Method to grab the last accessHour on load of the page
+      for(i = 0; i < this.contacts[contactToAssign].messages.length; i++){
+        if(this.contacts[contactToAssign].messages[i].status === "received"){
+          this.contacts[contactToAssign]["lastAccessHour"] = this.contacts[contactToAssign].messages[i].date.split(" ")[1];
+        }
+      }     
+    },
   },
   beforeMount(){
+    //Method to push in first place for each contact a blank message to not break the chat-container behaviour and freeze the page when all messages are deleted
+    for(let i = 0; i < this.contacts.length; i++){
+      this.contacts[i].messages.unshift({
+        date: "",
+        message: "",
+        status: "",
+      })
+    }
     this.lastAccessDate();
-    this.contacts[this.currentContactChat]["lastAccessHour"] = this.contacts[this.currentContactChat].messages[(this.contacts[this.currentContactChat].messages).length - 1].date.split(" ")[1];
+    this.getLastAccessHourOnLoad(0);
+    /* UNUSED -> this.contacts[this.currentContactChat]["lastAccessHour"] = this.contacts[this.currentContactChat].messages[(this.contacts[this.currentContactChat].messages).length - 1].date.split(" ")[1];*/
   },
   mounted(){
+    //we run this method on mounted to be sure the textArea has the corrent sizing from start
     this.resizeTextarea();
   },
 }).mount("#app");

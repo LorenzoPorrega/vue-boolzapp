@@ -75,6 +75,7 @@
               <div class="d-flex flex-column ms-3 overflow-hidden">
                 <span class="fw-bold cursor-default">{{singleContact.name}}</span>
                 <small class="text-body-secondary cursor-default text-truncate">{{sender(i, contacts)}}: <span class="fst-italic">{{contacts[i].messages[contacts[i].messages.length - 1].message}} </span></small>
+                <!--Tried using this: v-show="contacts[this.currentContactChat].messages.length !== 1" but in a v-for it changes the visibility of ALL contacts last msg info if one contacts has no message other than the blank one -->
               </div>
             </div>
           </div>
@@ -106,6 +107,7 @@
           <div class="chat px-5 py-3 d-flex flex-column justify-content-start w-100 flex-grow-1 overflow-auto">
             <div class="card mt-1"
             v-for="(message, i) in contacts[currentContactChat].messages"
+            v-show="(message.message !== '')"
             v-bind:class="contacts[currentContactChat].messages[i].status">
               <div class="card-body position-relative pt-2 pb-3 px-2">
                 <div class="dropdown position-absolute">
